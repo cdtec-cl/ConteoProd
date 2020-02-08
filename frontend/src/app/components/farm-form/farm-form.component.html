@@ -1,0 +1,84 @@
+
+<div class="card shadow">
+  <div class="card-header border-3">
+    <h3 class="mb-0" style="font-weight: bold">{{ farm.id ? 'Editar Campo': 'Nuevo Campo' }}</h3>
+  </div>
+  <div class="card-body">
+    <form #farmForm="ngForm">      
+      <div class="row pl-4 pr-4">
+        <div class="col-md-6"> 
+          <div class="form-group">
+            <label style="font-weight: bold">Nombre</label>
+            <div class="input-group">
+              <input 
+              [disabled]="param.key=='name'"
+              [(ngModel)]='farm.name' 
+              type="text" 
+              class="form-control" 
+              id="name" 
+              name="name" 
+              placeholder="Nombre"
+              required
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6"> 
+          <div class="form-group">
+            <label style="font-weight: bold">Descripcion</label>
+            <div class="input-group">
+              <input 
+              [(ngModel)]='farm.description' 
+              type="text" 
+              class="form-control" 
+              id="description"
+              name="description" 
+              placeholder="Descripcion"
+              required
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row pl-4 pr-4">
+        <div class="col-md-6"> 
+          <div class="form-group">
+            <label style="font-weight: bold">Dirección</label>
+            <div class="input-group">
+              <input 
+              [(ngModel)]='farm.address' 
+              type="text" 
+              class="form-control" 
+              id="address"
+              name="address" 
+              placeholder="Dirección"
+              required
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6"> 
+          <div class="form-group">
+            <label style="font-weight: bold">Razón social</label>
+            <div class="input-group">
+              <input 
+              [(ngModel)]='farm.social_reason' 
+              type="text" 
+              class="form-control" 
+              id="social_reason"
+              name="social_reason" 
+              placeholder="Razón social"
+              required
+              >
+            </div>
+          </div>
+        </div>   
+      </div>
+    </form>
+  </div>
+  <div class="card-footer">
+    <div class="row text-right">
+      <app-generic-button [disabled]="farmForm.invalid" (click)="saveFarm()" [buttonMessage]="buttonMessage"></app-generic-button>
+    </div>
+  </div>
+</div>

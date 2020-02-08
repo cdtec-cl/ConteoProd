@@ -1,0 +1,320 @@
+<div class="header bg-gradient-success pb-6 pt-3 pt-md-8">
+  <div class="container-fluid">  
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-3">
+          <h3 class="mb-0" style="font-weight: bold">{{ count.id ? 'Actualizar Conteos': 'Nuevos Conteos' }}</h3>
+        </div>
+
+        <form #countForm="ngForm">
+          <div class="row pl-4 pr-4 pt-3">
+            <div class="col-md-3">               
+              <div class="form-group">
+                <label style="font-weight: bold">Nombre del Campo</label>
+                  <select 
+                    [(ngModel)]="count.id_farm" 
+                    class="form-control" 
+                    data-toggle="select" 
+                    id="id_farm"
+                    name="id_farm"
+                    title="Simple select" 
+                    data-placeholder="Seleccione Campo"
+                    required
+                  >
+                    <option disabled >Seleccione Campo</option> 
+                    <option [value]='farm.id' *ngFor='let farm of farms'>{{farm.name}}</option>
+                  </select>
+                </div>
+            </div> 
+            <div class="col-md-3">               
+                <div class="form-group">
+                  <label style="font-weight: bold"> Nombre del Trabajador</label>
+                    <select 
+                      [(ngModel)]="count.id_employee" 
+                      class="form-control" 
+                      data-toggle="select"
+                      id="id_employee" 
+                      name="id_employee" 
+                      title="Simple select" 
+                      data-placeholder="Seleccione Trabajador"
+                      required
+                    >
+                        <option disabled >Seleccione Trabajador</option> 
+                        <option [value]='employee.id' *ngFor='let employee of employees'>{{employee.name+' '+employee.last_name}}</option>
+                    </select>
+                  </div>
+              </div> 
+              <div class="col-md-3">               
+                  <div class="form-group">
+                    <label style="font-weight: bold">Jornada</label>
+                      <select 
+                        [(ngModel)]="count.working_day" 
+                        class="form-control" 
+                        data-toggle="select" 
+                        id="working_day"
+                        name="working_day"
+                        title="Simple select" 
+                        data-placeholder="Seleccione Jornada"
+                        required
+                      >
+                          <option disabled >Seleccione Jornada</option> 
+                          <option [value]='working_day' *ngFor='let working_day of working_days'>{{working_day}}</option>                         
+                      </select>
+                    </div>
+                </div> 
+                <div class="col-md-3">               
+                    <div class="form-group">
+                      <label style="font-weight: bold">Control</label>
+                        <select 
+                          [(ngModel)]="count.countscol" 
+                          class="form-control" 
+                          data-toggle="select" 
+                          id="countscol"
+                          name="countscol"
+                          title="Simple select" 
+                          data-placeholder="Select a state"
+                          
+                        >
+                            <option disabled >Seleccione Control</option> 
+                            <option [value]='countscol' *ngFor='let countscol of countscols'>{{countscol}}</option>                     
+                        </select>
+                      </div>
+                  </div> 
+          </div>
+
+          <div class="row pl-4 pr-4 ">
+            <div class="col-md-3">                      
+              <div class="form-group">
+                  <label style="font-weight: bold">Fecha</label>
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                      </div>
+                      <input 
+                        [(ngModel)]="count.date" 
+                        class="form-control datepicker"
+                        id="row" 
+                        name="row" 
+                        placeholder="Select date" 
+                        type="date" 
+                        value="27/10/2019"
+                        required
+                      >
+                  </div>
+              </div>                                     
+            </div>
+            <div class="col-md-3"> 
+              <div class="form-group">
+                  <label style="font-weight: bold"># Cuartel</label>
+                    <select 
+                      [(ngModel)]="count.id_quarter" 
+                      class="form-control" 
+                      data-toggle="select" 
+                      id="id_quarter"
+                      name="id_quarter"
+                      title="Simple select" 
+                      data-placeholder="Seleccione Cuartel"
+                      required
+                    >
+                      <option [value]='quarter.id' *ngFor='let quarter of quarters'>{{quarter.name}}</option>
+                  </select>                      
+              </div>
+            </div>
+              
+
+            <div class="col-md-3"> 
+              <div class="form-group">
+                  <label style="font-weight: bold"># Temporada</label>
+                    <select 
+                      [(ngModel)]="count.id_season" 
+                      class="form-control" 
+                      data-toggle="select" 
+                      id="id_season"
+                      name="id_season"
+                      title="Simple select" 
+                      data-placeholder="Seleccione Temporada"
+                      required
+                    >
+                      <option [value]='season.id' *ngFor='let season of seasons'>{{season.name}}</option>
+                  </select>                      
+              </div>
+            </div>
+
+     
+          </div>
+            
+          
+          <!-- Button trigger modal -->
+          <ng-template #content let-c="close" let-d="dismiss">
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Nuevo Conteo!</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row pl-4 pr-4">
+                  <div class="col-md-12"> 
+                      <div class="form-group">
+                          <label style="font-weight: bold"> # Hilera</label>
+                          <div class="input-group">
+                              <input 
+                                [(ngModel)]="count.row" 
+                                type="number" 
+                                class="form-control"
+                                id="row" 
+                                name="row" 
+                                placeholder="1"
+                                required
+                              >
+                          </div>
+                      </div>
+                    </div>
+              
+                <div class="col-md-12"> 
+                  <div class="form-group">
+                      <label style="font-weight: bold"># Planta</label>
+                      <div class="input-group">
+                          <input 
+                            [(ngModel)]="count.plant" 
+                            type="number" 
+                            class="form-control" 
+                            id="plant" 
+                            name="plant" 
+                            placeholder="2"
+                            required
+                          >
+                      </div>
+                  </div>
+                </div>
+    
+                <div class="col-md-12"> 
+                  <div class="form-group">
+                      <label style="font-weight: bold"># Racimos</label>
+                      <div class="input-group">
+                          <input 
+                            [(ngModel)]="count.cant" 
+                            type="number" 
+                            class="form-control" 
+                            id="cant" 
+                            name="cant" 
+                            placeholder="3"
+                            required
+                          >
+                      </div>
+                  </div>
+                </div>
+    
+               <!-- <div class="col-md-12"> 
+                  <div class="form-group">
+                      <label style="font-weight: bold">Obj</label>
+                      <div class="input-group">
+                          <input 
+                            [(ngModel)]="count.obj" 
+                            type="text" 
+                            class="form-control" 
+                            id="obj" 
+                            name="obj" 
+                            placeholder="45"
+                            required
+                          >
+                      </div>
+                  </div>
+                </div>
+    
+                <div class="col-md-12"> 
+                  <div class="form-group">
+                      <label style="font-weight: bold">Diff</label>
+                      <div class="input-group">
+                          <input 
+                            [(ngModel)]="count.diff" 
+                            type="text" 
+                            class="form-control" 
+                            id="diff" 
+                            name="diff" 
+                            placeholder="5%"
+                            required
+                          >
+                      </div>
+                  </div>
+                </div>-->
+    
+              </div>
+            </div>
+            <div class="modal-footer">
+                <app-generic-button [disabled]="countForm.invalid" (click)="saveCount()" [buttonMessage]="buttonSaveMessage" ></app-generic-button>
+         
+            </div>
+          </ng-template>
+          <div class="row pl-4 pr-4 pb-3 text-right">
+              <app-generic-button class="float-right" [buttonMessage]="buttonMessage" (click)="open(content)" ></app-generic-button>
+          </div>
+          
+        </form>
+
+        <div class="table-responsive pb-6">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Empleado</th>
+                <th scope="col">Jornada</th>                
+                <th scope="col">Cuartel</th>
+                <th scope="col">Hilera</th>
+                <th scope="col">Planta</th>
+                <th scope="col">Cant_R</th>
+                <th scope="col">Obj_R</th>
+                <th scope="col">Diff_R</th>
+              </tr>
+            </thead>
+            <tbody *ngIf='counts'>        
+                      
+              <tr *ngFor='let list_count of counts| paginate: { itemsPerPage: 10, currentPage: page }'>
+                <td>
+                  {{list_count.id}}
+                </td>  
+                <th scope="row">
+                  <div class="media align-items-center">                    
+                    <div class="media-body">
+                      <span class="mb-0 text-sm">{{filter(employees, list_count.id_employee)}}</span>
+                    </div>
+                  </div>
+                </th>
+                <td>
+                  {{list_count.working_day}}
+                </td>              
+                <td>
+                    {{filter(quarters, list_count.id_quarter)}}
+                </td>
+                <td>
+                    {{list_count.row}}
+                </td>
+                <td>
+                    {{list_count.plant}}
+                </td>
+                <td>
+                    {{list_count.cant}}
+                </td>
+                <td>
+                    {{list_count.obj}}
+                </td>
+                <td>
+                    {{list_count.diff}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer py-4 text-center">
+          <pagination-controls (pageChange)=" $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

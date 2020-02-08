@@ -1,0 +1,5 @@
+<ul>
+  <li *ngFor="let item of list | paginate: { itemsPerPage: maxItem, currentPage: page }"> {{ item }} </li>
+</ul>
+           
+<pagination-controls (pageChange)="page = $event"></pagination-controls>

@@ -1,0 +1,249 @@
+<div class="header bg-gradient-success pb-6 pt-3 pt-md-8">
+  <div class="container-fluid">  
+  </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-3">
+          <div class="row pl-1 pr-4">
+            <div class="col-md-3">  
+              <h3 class="mb-0" style="font-weight: bold">Listado de Conteos</h3>
+            </div>
+              <div class="col-md-3" *ngIf="user && user.id_role!=3"><!--consultor-->
+                <div class="input-group file-input-group w-100">
+                  <app-generic-button class="w-100" (click)='getImportDates()' [buttonMessage]="buttonViewRecordsPerBatch" ></app-generic-button>  
+                </div>
+              </div>
+              <div class="col-md-3" *ngIf="user && user.id_role!=3"><!--consultor-->
+                <div class="input-group file-input-group w-100" data-controller="file-input">
+                  <input type="file" #fileInput accept=".xlsx" (change)="handleFileInput($event)" (click)="fileInput.value = null" value="" class="form-control" id="customFile" data-target="file-input.input" data-action="file-input#display" />
+                  <div class="w-100">
+                    <label class="btn btn-secondary mb-0 cursor-pointer w-100" for="customFile"
+                       style="margin-top: 7px; font-weight: bold">Importar archivo</label
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3" *ngIf="user && user.id_role!=3"><!--consultor-->
+                <app-generic-button class="w-100" routerLink="/form-conteo" routerLinkActive="active-link" [buttonMessage]="buttonMessageNew" [buttonIcon]="buttonIconNew"></app-generic-button>
+              </div>
+          </div>
+        </div>
+        <div class="row pl-4 pr-4 pt-3">
+            <div class="col-md-2 pl-1 pr-1">               
+              <div class="form-group">
+                <label style="font-weight: bold">Campo</label>
+                  <select [(ngModel)]='searching.farm' class="form-control" data-toggle="select" title="Simple select" data-placeholder="Select a state">
+                    <option [value]='farm.id' *ngFor='let farm of farms'>{{farm.name}}</option>
+                  </select>
+                </div>
+            </div> 
+
+            <div class="col-md-2 pl-1 pr-1">               
+              <div class="form-group">
+                <label style="font-weight: bold">Temporada</label>
+                  <select [(ngModel)]='searching.season' class="form-control" data-toggle="select" title="Simple select" data-placeholder="Select a state">
+                    <option [value]='season.id' *ngFor='let season of seasons'>{{season.name}}</option>
+                  </select>
+                </div>
+            </div> 
+            <div class="col-md-3 pl-1 pr-1">    
+                  
+              <div class="form-group">
+                  <label style="font-weight: bold">Fecha Inicial</label>
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                      </div>
+                      <input [(ngModel)]='searching.initialDate' class="form-control datepicker" placeholder="Select date" type="date" 
+                      value="27/10/2019">
+                  </div>
+              </div>        
+                    
+            </div>
+
+            <div class="col-md-3 pl-1 pr-1">    
+                  
+              <div class="form-group">
+                  <label style="font-weight: bold">Fecha Final</label>
+                  <div class="input-group">
+                      <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                      </div>
+                      <input [disabled]="!searching.initialDate" [(ngModel)]='searching.endDate' class="form-control datepicker" placeholder="Select date" type="date" 
+                      value="27/10/2019">
+                  </div>
+              </div>        
+                    
+            </div>
+
+            <div class="col-md-2 pl-1 pr-1 pt-4">    
+                  
+              <app-generic-button class="float-right" (click)='filterCountsByParams()' [buttonMessage]="searchButtonMessage" [buttonIcon]="searhcButtonIcon"></app-generic-button>       
+                    
+            </div>
+
+        </div>
+        <div class="table-responsive pb-6">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Empleado</th>
+                <th scope="col">Jornada</th>   
+                <th scope="col">Temporada</th>             
+                <th scope="col">Cuartel</th>
+                <th scope="col">Campo</th>
+                <th scope="col">Hilera</th>
+                <th scope="col">Planta</th>
+                <th scope="col">Cant_R</th>
+                <th scope="col">Obj_R</th>
+                <th scope="col">Diff_R</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody *ngIf='counts'>                    
+              <tr *ngFor='let count of filteredCounts | paginate: { itemsPerPage: 10, currentPage: page }'>
+                <td>
+                    {{count.id}}
+                </td>
+                <th scope="row">
+                  <div class="media align-items-center">                    
+                    <div class="media-body">
+                      <span class="mb-0 text-sm">{{filter(employees, count.employee_rut,'employees').name}}</span>
+                    </div>
+                  </div>
+                </th>
+             
+                <td>
+                  <span class="badge badge-dot mr-4">
+                    <i class="bg-success"></i> {{count.countscol}}
+                  </span>
+                </td>
+                <td>
+                    {{count.season_name}}
+                </td>
+                <td>
+                    {{count.quarter_name}}
+                </td>
+                <td>
+                    {{count.farm_name}}
+                </td>
+                <td>
+                    {{count.row}}
+                </td>
+                <td>
+                    {{count.plant}}
+                </td>
+                <td>
+                    {{count.cant}}
+                </td>
+                <td>
+                    {{count.obj}}
+                </td>
+                <td>
+                    {{count.diff}}
+                </td>
+                <td class="text-right">
+                  <div ngbDropdown   placement="top-right">
+                    <a class="btn btn-sm btn-icon-only text-light"  ngbDropdownToggle>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </a>
+                    <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                        <!-- <a class="dropdown-item" (click)='details()'>Ver</a> -->
+                        <a class="dropdown-item" (click)='toEdit(count.id)'>Editar</a>
+                        <a class="dropdown-item" (click)='delete(count.id)'>Borrar</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer py-4 text-center">
+          <pagination-controls (pageChange)="page = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>  
+
+</div>
+<!-- Button trigger modal -->
+
+<ng-template #content>
+  <div class="custom-modal">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Lista de elementos</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modalRefExcelList.close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+      <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Empleado</th>
+                <th scope="col">Jornada</th>                
+                <th scope="col">Cuartel</th>
+                <th scope="col">Temporada</th>
+                <th scope="col">Hilera</th>
+                <th scope="col">Planta</th>
+                <th scope="col">Cant_R</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Control</th>
+                <th scope="col">Fecha</th>
+              </tr>
+            </thead>
+            <tbody *ngIf='fileData'>                    
+              <tr *ngFor='let count of fileData | paginate: { itemsPerPage: 10, currentPage: page }'>
+                <th scope="row">
+                  <div class="media align-items-center">                    
+                    <div class="media-body">
+                      <span class="mb-0 text-sm">{{filter(employees, count.Trabajador,'employees').name}}</span>
+                    </div>
+                  </div>
+                </th>             
+                <td>
+                  <span class="badge badge-dot mr-4">
+                    <i class="bg-success"></i> {{count.Jornada}}
+                  </span>
+                </td>
+                <td>
+                    {{filter(quarters, count.Cuartel,'quarters').name}}
+                </td>
+                <td>
+                    {{filter(seasons, count.Temporada,'seasons').name}}
+                </td>
+                <td>
+                    {{count.No_Hilera}}
+                </td>
+                <td>
+                    {{count.No_Planta}}
+                </td>
+                <td>
+                    {{count.CantidadRacimos}}
+                </td>
+                <td>
+                    {{count.Campo}}
+                </td>                
+                <td>
+                    {{count.ControlRealizado}}
+                </td>
+                <td>
+                    {{count.FechaConteo}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+    <div class="modal-footer" style="">
+      <app-generic-button (click)="save()" [buttonMessage]="buttonMessageImport" [buttonIcon]="buttonIconImport"></app-generic-button>      
+    </div>
+  </div>
+</ng-template>

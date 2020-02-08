@@ -1,0 +1,242 @@
+<div class="card shadow">
+          <div class="card-header border-3">
+            <h3 class="mb-0" style="font-weight: bold">{{ quarter.id ? 'Editar Cuartel': 'Nuevo Cuartel' }}</h3>
+          </div>
+  
+          <form #quarterForm="ngForm">
+  
+              <div class="row pl-4 pr-4">
+                  <div class="col-md-4"> 
+                    <div class="form-group">
+                        <label style="font-weight: bold">Nombre</label>
+                        <div class="input-group">
+                          <input 
+                            [disabled]="param.key=='name'"
+                            [(ngModel)]='quarter.name' 
+                            type="text" 
+                            class="form-control" 
+                            id="name" 
+                            name="name" 
+                            placeholder="Nombre"
+                            required
+                          >
+                        </div>
+                    </div>
+                  </div>
+                    
+                  <div class="col-md-4"> 
+                    <div class="form-group">
+                        <label style="font-weight: bold">Descripción</label>
+                        <div class="input-group">
+                          <input 
+                            [(ngModel)]='quarter.description' 
+                            type="text" 
+                            class="form-control" 
+                            id="description" 
+                            name="description" 
+                            placeholder="Descripción"
+                            required
+                          >
+                        </div>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-4"> 
+                    <div class="form-group">
+                        <label style="font-weight: bold">Campo</label>
+                        <div class="input-group">
+                          <select 
+                            [(ngModel)]="quarter.id_farm" 
+                            class="form-control" 
+                            data-toggle="select" 
+                            id="id_farm"
+                            name="id_farm"
+                            title="Simple select" 
+                            data-placeholder="Seleccione Campo"
+                            required
+                          >
+                            <option disabled >Seleccione Campo</option>  
+                            <option [value]='farm.id' *ngFor='let farm of farms'>{{farm.name}}</option>
+                          </select>
+                        </div>
+                    </div>
+                  </div> 
+               </div>
+
+               <div class="row pl-4 pr-4">
+                <div class="col-md-4"> 
+                  <div class="form-group">
+                      <label style="font-weight: bold">Hectareas</label>
+                      <div class="input-group">
+                        <input 
+                          [(ngModel)]='quarter.hectareas' 
+                          type="text" 
+                          class="form-control" 
+                          id="hectareas" 
+                          name="hectareas" 
+                          placeholder="Hectareas"
+                          required
+                        >
+                      </div>
+                  </div>
+                </div>
+                  
+                <div class="col-md-4"> 
+                  <div class="form-group">
+                      <label style="font-weight: bold">Variedad</label>
+                      <div class="input-group">
+                        <input 
+                          [(ngModel)]='quarter.variety' 
+                          type="text" 
+                          class="form-control" 
+                          id="variety" 
+                          name="variety" 
+                          placeholder="Variedad"
+                          required
+                        >
+                      </div>
+                  </div>
+                </div> 
+
+                <div class="col-md-4"> 
+                  <div class="form-group">
+                      <label style="font-weight: bold">Portainjerto</label>
+                      <div class="input-group">
+                        <input 
+                          [(ngModel)]='quarter.portainjerto' 
+                          type="text" 
+                          class="form-control" 
+                          id="portainjerto" 
+                          name="portainjerto" 
+                          placeholder="Portainjerto"
+                          required
+                        >
+                      </div>
+                  </div>
+                </div>  
+
+             </div>
+            <div class="row pl-4 pr-4">
+              <div class="col-md-4"> 
+                    <div class="form-group">
+                        <label style="font-weight: bold">Nº Plantas / Cuartel</label>
+                        <div class="input-group">
+                          <input 
+                            [(ngModel)]='quarter.number_plants' 
+                            type="number" 
+                            class="form-control" 
+                            id="number_plants" 
+                            name="number_plants" 
+                            placeholder="Nº Plantas / Cuartel"
+                            required
+                          >
+                        </div>
+                    </div>
+              </div>
+              <div class="col-md-4"> 
+                    <div class="form-group">
+                        <label style="font-weight: bold">Nº Plantas/Cuartel Equiva</label>
+                        <div class="input-group">
+                          <input 
+                            [(ngModel)]='quarter.number_plants_equivalent' 
+                            type="number" 
+                            class="form-control" 
+                            id="number_plants_equivalent" 
+                            name="number_plants_equivalent" 
+                            placeholder="Nº Plantas/Cuartel Equiva"
+                            required
+                          >
+                        </div>
+                    </div>
+              </div>
+              <div class="col-md-4"> 
+                    <div class="form-group">
+                        <label style="font-weight: bold">Nº Plantas ha</label>
+                        <div class="input-group">
+                          <input 
+                            [(ngModel)]='quarter.number_plants_ha' 
+                            type="number" 
+                            class="form-control" 
+                            id="number_plants_ha" 
+                            name="number_plants_ha" 
+                            placeholder="Nº Plantas ha"
+                            required
+                          >
+                        </div>
+                    </div>
+              </div>
+            </div>
+            <div class="row pl-4 pr-4">
+              <div class="col-md-4"> 
+                  <div class="form-group">
+                      <label style="font-weight: bold">Nº Plantas Deseadas/HA</label>
+                      <div class="input-group">
+                        <input 
+                          [(ngModel)]='quarter.number_plants_equivalent_ha' 
+                          type="number" 
+                          class="form-control" 
+                          id="number_plants_equivalent_ha" 
+                          name="number_plants_equivalent_ha" 
+                          placeholder="Nº Plantas Deseadas/HA"
+                          required
+                        >
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-4"> 
+                  <div class="form-group">
+                      <label style="font-weight: bold">Nº Racimos Deseados/Planta</label>
+                      <div class="input-group">
+                        <input 
+                          [(ngModel)]='quarter.number_clusters_desired' 
+                          type="number" 
+                          class="form-control" 
+                          id="number_clusters_desired" 
+                          name="number_clusters_desired" 
+                          placeholder="Nº Racimos Deseados/ha"
+                          required
+                        >
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-4"> 
+                  <div class="form-group">
+                      <label style="font-weight: bold">Nº Racimos Deseados/ha</label>
+                      <div class="input-group">
+                        <input 
+                          [(ngModel)]='quarter.number_clusters_ha' 
+                          type="number" 
+                          class="form-control" 
+                          id="number_clusters_ha" 
+                          name="number_clusters_ha" 
+                          placeholder="Nº Racimos Deseados/ha"
+                          required
+                        >
+                      </div>
+                  </div>
+              </div>
+            </div>
+            <div class="row pl-4 pr-4">
+              <div class="col-md-4"> 
+                <div class="form-group">
+                    <label style="font-weight: bold">Nº Racimos Deseados Por Cuartel</label>
+                    <div class="input-group">
+                      <input 
+                        [(ngModel)]='quarter.number_clusters_for_quarters' 
+                        type="number" 
+                        class="form-control" 
+                        id="number_clusters_for_quarters" 
+                        name="number_clusters_for_quarters" 
+                        placeholder="Nº Racimos Deseados Por Cuartel"
+                        required
+                      >
+                    </div>
+                </div>
+              </div>
+          </div>
+            </form>
+  
+            <div class="row pl-4 pr-4 pb-4 text-right">
+              <app-generic-button [disabled]="quarterForm.invalid" (click)="saveQuarter()" [buttonMessage]="buttonMessage"></app-generic-button>
+            </div>
+        </div>

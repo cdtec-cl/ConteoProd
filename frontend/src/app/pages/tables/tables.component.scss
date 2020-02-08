@@ -1,0 +1,15 @@
+.ngx-pagination .current {
+    padding: 0.1875rem 0.625rem;
+    background: #5e72e4;
+    color: #fefefe;
+    cursor: default;
+    border-radius: 16px;
+}
+.file-input-group input[type="file"] {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}

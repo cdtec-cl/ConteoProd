@@ -1,0 +1,77 @@
+<div class="header bg-gradient-success pb-6 pt-5 pt-md-8">
+
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+          <div class="card-header border-3">
+            <div class="row pl-1 pr-4">
+              <div class="col-md-10">  
+                <h3 class="mb-0" style="font-weight: bold">Listado de Usuarios</h3>
+              </div>
+              <div class="col-md-2">  
+                <app-generic-button class="float-right" routerLink="/form-usuario" routerLinkActive="active-link" [buttonMessage]="buttonMessage" [buttonIcon]="buttonIcon"></app-generic-button>
+              </div>
+            </div>
+          </div>
+        <div class="table-responsive pb-6" >
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Nombre y Apellido</th>
+                <th scope="col">Rut</th>
+                <th scope="col">Email</th>
+                <th scope="col">Rol</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor='let user of users | paginate: { itemsPerPage: 10, currentPage: page }'>
+                <th scope="row">
+                  <div class="media align-items-center">
+                    <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
+                      <img alt="Image placeholder" src="../assets/img/theme/user.png">
+                    </a>
+                    <div class="media-body">
+                      <span class="mb-0 text-sm">{{ user.name }} {{ user.last_name }}</span>
+                    </div>
+                  </div>
+                </th>
+                <td>
+                  <span class="badge badge-dot mr-4">
+                   {{ user.rut }}
+                  </span>
+                </td>
+                <td>
+                  {{ user.email }}
+                </td>  
+                <td>
+                  {{ user.role.name }}
+                </td>           
+                <td class="text-right">
+                  <div ngbDropdown placement="bottom-right">
+                    <a class="btn btn-sm btn-icon-only text-light"  ngbDropdownToggle>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </a>
+                    <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                      <!-- <a class="dropdown-item" (click)='details()'>Ver</a> -->
+                      <a class="dropdown-item" (click)='toEdit(user.id)'>Editar</a>
+                      <a class="dropdown-item" (click)='delete(user.id)'>Borrar</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer py-4 text-center">
+          <pagination-controls (pageChange)="page = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Dark table -->
+</div>

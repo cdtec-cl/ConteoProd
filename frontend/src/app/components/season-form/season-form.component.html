@@ -1,0 +1,72 @@
+<div class="card shadow">
+        <div class="card-header border-3">
+          <h3 class="mb-0" style="font-weight: bold">{{ season.id ? 'Editar Temporada': 'Nueva Temporada' }}</h3>
+        </div>
+
+          <form #seasonForm="ngForm">
+
+            <div class="row pl-4 pr-4">
+              <div class="col-md-6"> 
+                <div class="form-group">
+                    <label style="font-weight: bold">Nombre</label>
+                    <div class="input-group">
+                      <input 
+                        [disabled]="param.key=='name'"
+                        [(ngModel)]='season.name' 
+                        type="text" 
+                        class="form-control" 
+                        id="name" 
+                        name="name" 
+                        placeholder="Nombre"
+                        required
+                      >
+                    </div>
+                </div>
+              </div>
+                  
+              <div class="col-md-6"> 
+                <div class="form-group">
+                    <label style="font-weight: bold">Descripción</label>
+                    <div class="input-group">
+                      <input 
+                        [(ngModel)]='season.description' 
+                        type="text" 
+                        class="form-control" 
+                        id="description" 
+                        name="description" 
+                        placeholder="Descripción"
+                        required
+                      >
+                    </div>
+                </div>
+              </div>              
+            </div>
+
+              <div class="row pl-4 pr-4">
+                  <div class="col-md-3"> 
+                    <div class="form-group">
+                        <label style="font-weight: bold">Año</label>
+                        <div class="input-group">
+                          <input 
+                            [(ngModel)]='season.year' 
+                            type="text" 
+                            class="form-control" 
+                            id="year" 
+                            name="year" 
+                            placeholder="Año"
+                            required
+                          >
+                        </div>
+                    </div>
+                  </div>
+              </div>
+
+              
+
+            
+        </form>
+
+        <div class="row pl-4 pr-4 pb-4 text-right">
+          <app-generic-button [disabled]="seasonForm.invalid" (click)="saveSeason()" [buttonMessage]="buttonMessage" ></app-generic-button>
+        </div>
+      </div>

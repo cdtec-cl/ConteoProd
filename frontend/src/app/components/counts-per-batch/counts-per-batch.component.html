@@ -1,0 +1,106 @@
+<div class="card shadow">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Conteos importados por fecha</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modalRef.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+	<div class="card-body">
+		<div class="row pl-4 pr-4"> 
+		    <div [class]="counts.length>0?'col-md-8':'col-md-12'"> 
+		      <div class="form-group">
+		        <div class="input-group">
+		          <ngx-select-dropdown
+		              (change)="selectionChanged($event)"
+		              [config]="datesConfig"
+		              [options]="dates"
+		              ngDefaultControl
+		              class="w-100 h-100"
+		            ></ngx-select-dropdown>
+		        </div>
+		      </div>
+		    </div>  
+        <div class="col-md-4" *ngIf="counts.length>0"> 
+          <div class="custom-control custom-control-alternative custom-checkbox">
+            <input class="custom-control-input" type="checkbox"  [checked]="selectedAll">
+            <label class="custom-control-label" (click)="selectAll($event)">
+              <span class="text-muted">Seleccionar todos</span>
+            </label>
+          </div>
+        </div>
+		</div>
+		<div class="table-responsive pb-6">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Acciones</th>
+                <th scope="col">Id</th>
+                <th scope="col">Empleado</th>
+                <th scope="col">Jornada</th>   
+                <th scope="col">Temporada</th>             
+                <th scope="col">Cuartel</th>
+                <th scope="col">Hilera</th>
+                <th scope="col">Planta</th>
+                <th scope="col">Cant_R</th>
+                <th scope="col">Obj_R</th>
+                <th scope="col">Diff_R</th>
+              </tr>
+            </thead>
+            <tbody *ngIf='counts'>                    
+              <tr *ngFor='let count of filteredCounts | paginate: { itemsPerPage: 10, currentPage: page };index as i'>
+                <td class="text-right">
+                    <div class="custom-control custom-control-alternative custom-checkbox">
+                      <input class="custom-control-input" type="checkbox"  [checked]="checkboxes[i]">
+                      <label class="custom-control-label" (click)="toggleSelection($event, i)">
+                        <span class="text-muted">Seleccionar</span>
+                      </label>
+                    </div>
+                </td>
+                <td>
+                    {{count.id}}
+                </td>
+                <th scope="row">
+                  <div class="media align-items-center">                    
+                    <div class="media-body">
+                      <span class="mb-0 text-sm">{{filter(employees, count.employee_rut,'employees').name}}</span>
+                    </div>
+                  </div>
+                </th>
+             
+                <td>
+                  <span class="badge badge-dot mr-4">
+                    <i class="bg-success"></i> {{count.countscol}}
+                  </span>
+                </td>
+                <td>
+                    {{count.season_name}}
+                </td>
+                <td>
+                    {{count.quarter_name}}
+                </td>
+                <td>
+                    {{count.row}}
+                </td>
+                <td>
+                    {{count.plant}}
+                </td>
+                <td>
+                    {{count.cant}}
+                </td>
+                <td>
+                    {{count.obj}}
+                </td>
+                <td>
+                    {{count.diff}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div> 
+	</div>
+    <div class="card-footer">
+        <div class="row pl-4 pr-4 pb-4 text-right">
+          <app-generic-button [disabled]="disabledDeleteBtn()" (click)="deleteSelected()" [buttonMessage]="buttonMessage" ></app-generic-button>
+        </div>
+    </div>
+</div>

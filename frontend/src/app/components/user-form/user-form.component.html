@@ -1,0 +1,151 @@
+<div class="card shadow">
+	<div class="card-header border-3">
+		<h3 class="mb-0" style="font-weight: bold">{{ user.id ? 'Editar Usuario': 'Nuevo Usuario' }}</h3>
+	</div>
+
+	<form #userForm="ngForm">
+		<div class="row pl-4 pr-4">
+			<div class="col-md-6"> 
+				<div class="form-group">
+					<label style="font-weight: bold">Nombre</label>
+					<div class="input-group">
+						<input 
+						[(ngModel)]='user.name' 
+						type="text" 
+						class="form-control" 
+						id="name" 
+						name="name" 
+						placeholder="Nombre"
+						required
+						>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-6"> 
+				<div class="form-group">
+					<label style="font-weight: bold">Apellido</label>
+					<div class="input-group">
+						<input 
+						[(ngModel)]='user.last_name' 
+						type="text" 
+						class="form-control" 
+						id="last_name" 
+						name="last_name" 
+						placeholder="Apellido"
+						required
+						>
+					</div>
+				</div>
+			</div>              
+		</div>
+
+		<div class="row pl-4 pr-4">
+			<div class="col-md-6"> 
+				<div class="form-group">
+					<label style="font-weight: bold">Rut</label>
+					<div class="input-group">
+						<input 
+						[(ngModel)]='user.rut' 
+						type="text" 
+						class="form-control" 
+						id="rut" 
+						name="rut" 
+						placeholder="Rut"
+						required
+						>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-md-6"> 
+				<div class="form-group">
+					<label style="font-weight: bold">Email</label>
+					<div class="input-group">
+						<input 
+						[(ngModel)]='user.email' 
+						type="email" 
+						class="form-control" 
+						id="email" 
+						name="email" 
+						placeholder="Email"
+						required
+						>
+					</div>
+				</div>
+			</div>        
+
+			<div class="col-md-6"> 
+				<div class="form-group">
+					<label style="font-weight: bold">Contraseña</label>
+					<div class="input-group">
+						<input 
+						[(ngModel)]='user.password' 
+						type="password" 
+						class="form-control" 
+						id="password" 
+						name="password" 
+						placeholder="Contraseña"
+						required
+						>
+					</div>
+				</div>
+			</div>  
+
+			<div class="col-md-6"> 
+				<div class="form-group">
+					<label style="font-weight: bold">Confirmación de Contraseña</label>
+					<div class="input-group">
+						<input 
+						[(ngModel)]='user.password_confirmation' 
+						type="password" 
+						class="form-control" 
+						id="password_confirmation" 
+						name="password_confirmation" 
+						placeholder="Contraseña"
+						required
+						>
+					</div>
+				</div>
+			</div>  
+			
+			<div class="col-md-6"> 
+				<div class="form-group">
+					<label style="font-weight: bold">Rol</label>
+					<div class="input-group">
+						<ngx-select-dropdown
+						[(ngModel)]="selectedRoles"
+						[ngModelOptions]="{standalone: true}"
+						(change)="selectionChanged($event,'role')"
+						[config]="roleConfig"
+						[options]="roles"
+						ngDefaultControl
+						class="w-100 h-100"
+						></ngx-select-dropdown>
+					</div>
+				</div>
+			</div> 
+
+			<div class="col-md-6"> 
+				<div class="form-group">
+					<label style="font-weight: bold">Campos</label>
+					<div class="input-group">
+						<ngx-select-dropdown
+						[(ngModel)]="selectedFarms"
+						[ngModelOptions]="{standalone: true}"
+						[multiple]="true"
+						(change)="selectionChanged($event,'farm')"
+						[config]="farmsConfig"
+						[options]="farms"
+						ngDefaultControl
+						class="w-100 h-100"
+						></ngx-select-dropdown>
+					</div>
+				</div>
+			</div> 
+		</div>
+	</form>
+	<div class="row pl-4 pr-4 pb-4 text-right">
+		<app-generic-button [disabled]="userForm.invalid" (click)="saveUser()" [buttonMessage]="buttonMessage" ></app-generic-button>
+	</div>
+</div>
